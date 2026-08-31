@@ -1,0 +1,6 @@
+.env
+outbox/
+sent/
+__pycache__/
+*.csv
+!leads.example.csv
