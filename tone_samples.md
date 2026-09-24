@@ -8,7 +8,7 @@ The more representative these are, the better the drafts will match your voice.
 
 Hey Jasen,
 
-Hope you're well! I'll keep this short. I'm Pradhi Pakkerakari, a Cornell CS and Labor Relations student building GalacticHire.
+Hope you're well! I'll keep this short. I'm Pradhi Pakkerakari, a Cornell CS student building GalacticHire.
 
 GalacticHire is the first video interviewer that personalizes each interview to the candidate while showing you their performance and history in real time. You get sharp analytics in seconds, candidates get an experience built around them, and you stop losing hours to low-quality interviews.
 

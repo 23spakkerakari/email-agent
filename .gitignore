@@ -1,6 +1,7 @@
 .env
 outbox/
 sent/
+followup[0-9]*/
 __pycache__/
 *.csv
 !leads.example.csv

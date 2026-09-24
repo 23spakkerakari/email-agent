@@ -1,3 +1,4 @@
 anthropic>=1.2
 python-dotenv
 brotli>=1.2  # httpx2 (used by anthropic) needs >=1.2; 1.1 breaks response decoding
+resend>=2.0  # only needed for emails_resend.py
