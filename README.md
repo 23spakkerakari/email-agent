@@ -63,29 +63,36 @@ Sends are spaced 1s apart by default (Resend's rate limit is 2 req/s).
 
 ## Follow-ups
 
-`followup.py` drafts a follow-up for everyone who hasn't replied. Each stage reads the
-previous stage's folder and, once sent, the whole thread moves forward one folder:
+`followup.py` drafts a follow-up for everyone who hasn't replied. Each person can get up
+to **5** follow-ups after the original. Each stage reads the previous stage's folder and,
+once sent, the whole thread moves forward one folder:
 
 ```
-sent/  --followup 1-->  followup1/  --followup 2-->  followup2/  ...
+sent/  --stage 1-->  followup1/  --stage 2-->  followup2/  --stage 3-->  ...  --stage 5-->  followup5/
 ```
 
 So `sent/` only ever holds people who got just the original, `followup1/` only people
-who got exactly one follow-up, and nobody can be sent the same follow-up twice.
+who got exactly one follow-up, and so on. Nobody can be sent the same follow-up twice,
+and nobody in `followup5/` is ever drafted again.
 
 ```powershell
+python followup.py --status                # how many people are at each stage
 python followup.py --limit 2               # 1st follow-up, test on 2 first
 python followup.py                         # 1st follow-up for everyone in sent/
 python emails.py send                      # send from the same Gmail so it threads
 
-python followup.py --stage 2 --message second.txt   # 2nd follow-up for everyone in followup1/
+python followup.py --stage 2               # 2nd follow-up for everyone in followup1/
 python emails.py send
+# ... and so on up to --stage 5
 ```
 
-The 1st follow-up text is built into the script. For later stages write the body in a
-text file with `{name}` where the name goes and pass it with `--message`. The name comes
-from the original's greeting line, the subject is `Re: <original>`, and the original is
-quoted underneath.
+The text for every stage lives in **`followups.md`**, one `## Follow-up N` section per
+stage, with `{name}` where the first name goes. Edit it to change what each follow-up says.
+To send something different just once, put the body in a text file and pass `--message that.txt`.
+
+The name comes from the original's greeting line, the subject is `Re: <original>`, and the
+latest message in the thread is quoted underneath (so a 3rd follow-up shows the 2nd, which
+shows the 1st, like a normal reply chain).
 
 Send follow-ups before running `generate` on a new lead list, since `send` sends
 everything in `outbox/`. Duplicate detection in `generate` checks every archive folder,
